@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student List</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student List</h1>
+
+  <table id="studentTable">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Grade</th>
+    </tr>
+  </table>
+
+  <script>
+    fetch('http://localhost:3000/students')
+      .then(response => response.json())
+      .then(data => {
+        const table = document.getElementById('studentTable');
+
+        data.forEach(student => {
+          const row = table.insertRow();
+
+          const idCell = row.insertCell();
+          idCell.textContent = student.id;
+
+          const nameCell = row.insertCell();
+          nameCell.textContent = student.name;
+
+          const ageCell = row.insertCell();
+          ageCell.textContent = student.age;
+
+          const gradeCell = row.insertCell();
+          gradeCell.textContent = student.grade;
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
